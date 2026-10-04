@@ -1,0 +1,20 @@
+{
+  "name": "BakSutra — Premium Voice Typing & Translation",
+  "short_name": "BakSutra",
+  "description": "BakSutra — Premium Bengali and English voice typing, live translation, and text-to-speech studio.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0b1020",
+  "theme_color": "#0b1020",
+  "lang": "bn",
+  "dir": "ltr",
+  "icons": [
+    {
+      "src": "new-logo.png",
+      "sizes": "192x192 512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

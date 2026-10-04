@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="bn" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="BakSutra — Premium Bengali and English voice typing, live translation, and text-to-speech studio." />
+  <meta name="robots" content="index, follow, max-image-preview:large" />
+  <link rel="canonical" href="./" />
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="BakSutra — Premium Voice Typing & Translation" />
+  <meta property="og:description" content="Premium Bengali and English voice typing, live translation, and text-to-speech studio." />
+  <meta property="og:url" content="./" />
+  <meta property="og:site_name" content="BakSutra" />
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="BakSutra — Premium Voice Typing & Translation" />
+  <meta name="twitter:description" content="Premium Bengali and English voice typing, live translation, and text-to-speech studio." />
+  <meta name="theme-color" content="#0b1020" />
+  <meta name="color-scheme" content="dark light" />
+  <title>BakSutra — Premium Voice Typing & Translation</title>
+
+  <link rel="manifest" href="manifest.json" />
+  <link rel="icon" href="new-logo.png" type="image/png" sizes="192x192" />
+  <link rel="icon" href="new-logo.png" type="image/png" sizes="512x512" />
+  <link rel="apple-touch-icon" href="new-logo.png" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="dark-theme">
+  <div class="ambient ambient--one" aria-hidden="true"></div>
+  <div class="ambient ambient--two" aria-hidden="true"></div>
+  <div class="ambient-grid" aria-hidden="true"></div>
+
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"><img src="new-logo.png" alt="" width="512" height="512" decoding="async" /></div>
+        <div class="brand-copy">
+          <div class="brand-title-row">
+            <h1>BakSutra</h1><span class="brand-badge">VOICE STUDIO</span>
+          </div>
+          <p>বাকসূত্র · কথা থেকে লেখা, আরও সুন্দরভাবে</p>
+        </div>
+      </div>
+
+      <div class="header-actions">
+        <div class="status-pill" id="status-badge" data-state="idle" aria-live="polite">
+          <span class="status-dot"></span><span id="status-text">Ready</span>
+        </div>
+        <button id="theme-toggle" class="icon-button" type="button" aria-label="Switch to light theme" title="Theme">
+          <i class="fa-solid fa-sun" id="theme-icon" aria-hidden="true"></i>
+        </button>
+      </div>
+    </header>
+
+    <main class="workspace">
+      <section class="control-panel" aria-label="Voice controls">
+        <div class="mode-switcher" role="group" aria-label="Application mode">
+          <button class="mode-btn is-active" id="btn-mode-typing" data-mode="typing" type="button" aria-pressed="true">
+            <i class="fa-solid fa-microphone-lines" aria-hidden="true"></i><span>Voice Typing</span>
+          </button>
+          <button class="mode-btn" id="btn-mode-translation" data-mode="translation" type="button" aria-pressed="false">
+            <i class="fa-solid fa-language" aria-hidden="true"></i><span>Live Translation</span>
+          </button>
+        </div>
+
+        <label class="language-control" for="lang-selector">
+          <span class="control-caption">Speak in</span>
+          <div class="select-shell">
+            <i class="fa-solid fa-globe" aria-hidden="true"></i>
+            <select id="lang-selector" aria-label="Speech language">
+              <option value="bn-BD">বাংলা — Bengali</option>
+              <option value="en-US">English — US</option>
+              <option value="en-GB">English — UK</option>
+            </select>
+            <i class="fa-solid fa-chevron-down" aria-hidden="true"></i>
+          </div>
+        </label>
+
+        <div class="record-cluster">
+          <div class="record-orbit" id="pulse-ring" aria-hidden="true"></div>
+          <button class="record-button" id="record-btn" type="button" aria-label="Start voice recording" aria-pressed="false">
+            <span class="record-button-inner"><i class="fa-solid fa-microphone" id="record-icon" aria-hidden="true"></i></span>
+          </button>
+        </div>
+
+        <div class="voice-meter" id="voice-meter" aria-hidden="true">
+          <span></span><span></span><span></span><span></span><span></span><span></span><span></span>
+        </div>
+
+        <div class="control-copy">
+          <strong id="record-hint">Tap to speak</strong>
+          <span id="record-subhint">Auto-stops after a short silence</span>
+        </div>
+      </section>
+
+      <section class="live-card" aria-label="Live speech preview">
+        <div class="live-label"><span class="live-dot"></span><span>LIVE PREVIEW</span></div>
+        <p id="interim-text" class="interim-text">আপনার কথা বলা শুরু হলে এখানে লাইভ প্রিভিউ দেখা যাবে…</p>
+      </section>
+
+      <section class="editor-card">
+        <div class="editor-topbar">
+          <div class="editor-heading">
+            <div class="editor-icon"><i class="fa-regular fa-file-lines" aria-hidden="true"></i></div>
+            <div><h2>Transcript</h2><p id="editor-subtitle">Your polished voice workspace</p></div>
+          </div>
+          <div class="editor-pills">
+            <span class="pill" id="mode-pill">Voice Typing</span>
+            <span class="pill pill--accent" id="lang-pill">বাংলা</span>
+          </div>
+        </div>
+
+        <textarea id="editor" class="editor-textarea" placeholder="মাইক্রোফোন চাপুন এবং কথা বলা শুরু করুন…" spellcheck="false" aria-label="Transcribed text"></textarea>
+
+        <div class="editor-bottom">
+          <div class="metrics" aria-label="Text metrics">
+            <span class="metric"><b id="word-count">0</b><small>Words</small></span>
+            <span class="metric"><b id="char-count">0</b><small>Characters</small></span>
+            <span class="metric"><b id="line-count">0</b><small>Lines</small></span>
+          </div>
+          <div class="save-status" id="autosave-indicator"><i class="fa-solid fa-check-circle" aria-hidden="true"></i><span>Saved locally</span></div>
+        </div>
+      </section>
+
+      <nav class="action-dock" aria-label="Text actions">
+        <button class="action-btn" id="btn-copy" type="button" title="Copy to clipboard"><i class="fa-regular fa-copy" aria-hidden="true"></i><span>Copy</span></button>
+        <button class="action-btn" id="btn-tts" type="button" title="Read aloud"><i class="fa-solid fa-volume-high" aria-hidden="true"></i><span>Read</span></button>
+        <button class="action-btn" id="btn-download" type="button" title="Save as text"><i class="fa-solid fa-download" aria-hidden="true"></i><span>Save</span></button>
+        <button class="action-btn" id="btn-docx" type="button" title="Export Word document"><i class="fa-regular fa-file-word" aria-hidden="true"></i><span>Word</span></button>
+        <button class="action-btn" id="btn-pdf" type="button" title="Export PDF document"><i class="fa-regular fa-file-pdf" aria-hidden="true"></i><span>PDF</span></button>
+        <button class="action-btn" id="btn-undo" type="button" title="Undo last clear" disabled><i class="fa-solid fa-rotate-left" aria-hidden="true"></i><span>Undo</span></button>
+        <button class="action-btn" id="btn-share" type="button" title="Share transcript"><i class="fa-solid fa-share-nodes" aria-hidden="true"></i><span>Share</span></button>
+        <button class="action-btn" id="btn-ai-check" type="button" title="Open AI writing prompt"><i class="fa-solid fa-wand-magic-sparkles" aria-hidden="true"></i><span>AI Polish</span></button>
+        <button class="action-btn action-btn--danger" id="btn-clear" type="button" title="Clear transcript"><i class="fa-solid fa-trash-can" aria-hidden="true"></i><span>Clear</span></button>
+        <button class="action-btn action-btn--muted" id="btn-info" type="button" title="Voice commands"><i class="fa-solid fa-circle-question" aria-hidden="true"></i><span>Help</span></button>
+      </nav>
+    </main>
+
+    <footer class="app-footer" aria-label="Developer credit">
+      <div class="footer-content">
+        <p class="developer-credit">
+          Designed &amp; Developed with <i class="fa-solid fa-heart heart-icon" aria-hidden="true"></i> by
+          <a
+            href="https://www.facebook.com/OmarMohammadChowdhury"
+            target="_blank"
+            rel="noopener noreferrer"
+            class="developer-name"
+            aria-label="Open Omar Mohammad Chowdhury on Facebook"
+          >Omar Mohammad Chowdhury</a>
+        </p>
+        <div class="developer-badge">
+          <i class="fa-solid fa-location-dot" aria-hidden="true"></i>
+          <span>Chattogram, Bangladesh</span>
+        </div>
+      </div>
+    </footer>
+  </div>
+
+  <div id="toast" class="toast" role="status" aria-live="polite" aria-atomic="true"><i class="fa-solid fa-circle-check" id="toast-icon" aria-hidden="true"></i><span id="toast-message">Done</span></div>
+
+  <div id="info-modal" class="modal-overlay" role="dialog" aria-modal="true" aria-labelledby="modal-title" aria-hidden="true">
+    <div class="modal-card" role="document">
+      <div class="modal-header">
+        <div><span class="modal-kicker">VOICE COMMANDS</span><h2 id="modal-title">Smart punctuation &amp; editing</h2><p>বাংলা ও English — দুটোতেই দ্রুত কাজ করুন</p></div>
+        <button class="modal-close" id="modal-close" type="button" aria-label="Close help"><i class="fa-solid fa-xmark" aria-hidden="true"></i></button>
+      </div>
+      <div class="modal-body">
+        <section class="command-section"><h3><span>BN</span> বাংলা</h3><div class="command-grid">
+          <div><b>দাঁড়ি / দাড়ি / ফুলস্টপ</b><code>।</code></div><div><b>কমা</b><code>,</code></div><div><b>প্রশ্নবোধক / প্রশ্নবোধক চিহ্ন</b><code>?</code></div><div><b>বিস্ময়বোধক / বিস্ময়বোধক চিহ্ন</b><code>!</code></div><div><b>কোলোন</b><code>:</code></div><div><b>সেমিকোলোন</b><code>;</code></div><div><b>নতুন লাইন / নতুন অনুচ্ছেদ</b><code>↵</code></div>
+        </div></section>
+        <section class="command-section"><h3><span>EN</span> English</h3><div class="command-grid">
+          <div><b>period / full stop</b><code>.</code></div><div><b>comma</b><code>,</code></div><div><b>question mark</b><code>?</code></div><div><b>exclamation mark</b><code>!</code></div><div><b>colon</b><code>:</code></div><div><b>semicolon</b><code>;</code></div><div><b>new line / new paragraph</b><code>↵</code></div>
+        </div></section>
+      </div>
+      <div class="modal-footer"><button class="primary-button" id="modal-ok" type="button">Done</button></div>
+    </div>
+  </div>
+
+  <noscript>
+    <div style="padding:1rem;font-family:system-ui,sans-serif;line-height:1.5;max-width:720px;margin:2rem auto;">
+      BakSutra চালাতে JavaScript সক্রিয় থাকতে হবে। ব্রাউজারের JavaScript settings অন করে পেজটি আবার চালু করুন।
+    </div>
+  </noscript>
+  <script src="script.js"></script>
+</body>
+</html>
